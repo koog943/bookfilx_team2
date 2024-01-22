@@ -1,0 +1,10 @@
+D:\Lv2IntegratedauthenticationAuthorizationCodeGrant\order\src\main\java\labshopoauthkeycloak\config\kafka\KafkaProcessor.java
+D:\Lv2IntegratedauthenticationAuthorizationCodeGrant\order\src\main\java\labshopoauthkeycloak\config\security\ResourceSecurityConfig.java
+D:\Lv2IntegratedauthenticationAuthorizationCodeGrant\order\src\main\java\labshopoauthkeycloak\infra\AbstractEvent.java
+D:\Lv2IntegratedauthenticationAuthorizationCodeGrant\order\src\main\java\labshopoauthkeycloak\infra\OrderHateoasProcessor.java
+D:\Lv2IntegratedauthenticationAuthorizationCodeGrant\order\src\main\java\labshopoauthkeycloak\OrderApplication.java
+D:\Lv2IntegratedauthenticationAuthorizationCodeGrant\order\src\main\java\labshopoauthkeycloak\domain\OrderPlaced.java
+D:\Lv2IntegratedauthenticationAuthorizationCodeGrant\order\src\main\java\labshopoauthkeycloak\domain\Order.java
+D:\Lv2IntegratedauthenticationAuthorizationCodeGrant\order\src\main\java\labshopoauthkeycloak\domain\OrderRepository.java
+D:\Lv2IntegratedauthenticationAuthorizationCodeGrant\order\src\main\java\labshopoauthkeycloak\infra\OrderController.java
+D:\Lv2IntegratedauthenticationAuthorizationCodeGrant\order\src\main\java\labshopoauthkeycloak\infra\PolicyHandler.java

@@ -1,0 +1,12 @@
+labshopoauthkeycloak\infra\PolicyHandler.class
+labshopoauthkeycloak\config\kafka\KafkaProcessor.class
+labshopoauthkeycloak\infra\OrderController.class
+labshopoauthkeycloak\infra\AbstractEvent.class
+labshopoauthkeycloak\domain\OrderRepository.class
+labshopoauthkeycloak\OrderApplication.class
+labshopoauthkeycloak\domain\OrderPlaced.class
+labshopoauthkeycloak\infra\AbstractEvent$1.class
+labshopoauthkeycloak\infra\OrderHateoasProcessor.class
+labshopoauthkeycloak\config\security\ResourceSecurityConfig.class
+labshopoauthkeycloak\config\security\ResourceSecurityConfig$GrantedAuthoritiesExtractor.class
+labshopoauthkeycloak\domain\Order.class
