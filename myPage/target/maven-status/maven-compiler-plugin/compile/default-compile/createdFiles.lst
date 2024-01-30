@@ -1,8 +1,0 @@
-mypage\infra\PolicyHandler.class
-mypage\config\kafka\KafkaProcessor.class
-mypage\domain\Logined.class
-mypage\domain\Mypage.class
-mypage\infra\AbstractEvent$1.class
-mypage\infra\AbstractEvent.class
-mypage\infra\MypageRepository.class
-mypage\MyPageApplication.class
