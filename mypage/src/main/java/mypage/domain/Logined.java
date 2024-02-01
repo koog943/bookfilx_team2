@@ -6,6 +6,9 @@ import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+import org.apache.kafka.common.security.auth.Login;
 
 import lombok.Data;
 import lombok.Getter;
@@ -14,17 +17,19 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-@Embeddable
+@MappedSuperclass
 public class Logined {
-    @Id
-    private Long id;
+    private Long id = 1L;
 
-    private String userId;
+    private String userId = "userId1";
 
-    private String userName;
+    private String userName ="test";
     
-    private Integer userMoney;
+    private Integer userMoney = 0;
 
-    private boolean userSubscribeStatus;
+    private boolean userSubscribeStatus = false;
+
+
+
 
 }

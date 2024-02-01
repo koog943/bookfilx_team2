@@ -8,6 +8,7 @@ import mypage.domain.Mypage;
 import mypage.domain.MypageRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -27,8 +28,10 @@ public class UserService {
     }
 
     public Mypage findById(Long id) {
-        return mypageRepository.findById(id).orElse(null);
-    }
+        Optional<Mypage> optionalMypage = mypageRepository.findById(id);
+        return optionalMypage.orElse(null);
+}
+
 
     public void deleteById(Long id) {
         mypageRepository.deleteById(id);

@@ -7,5 +7,4 @@ D:\Book\bookflix\mypage\src\main\java\mypage\MyPageApplication.java
 D:\Book\bookflix\mypage\src\main\java\mypage\domain\Mypage.java
 D:\Book\bookflix\mypage\src\main\java\mypage\domain\MypageRepository.java
 D:\Book\bookflix\mypage\src\main\java\mypage\config\kafka\KafkaProcessor.java
-D:\Book\bookflix\mypage\src\main\java\mypage\domain\Payment.java
 D:\Book\bookflix\mypage\src\main\java\mypage\domain\Logined.java

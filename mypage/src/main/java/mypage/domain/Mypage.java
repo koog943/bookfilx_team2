@@ -23,10 +23,11 @@ public class Mypage {
     @Embedded
     @Getter
     @Setter
-    private Logined logined;
+    private Logined logined = new Logined();
+
 
     public void changeUserStatus() {
-        UserChangeEvent event = new UserChangeEvent(this, this.getUserMoney(), this.isUserSubscribeStatus());
+        UserChangeEvent event = new UserChangeEvent(this, this.logined.getUserMoney(), this.logined.isUserSubscribeStatus());
         event.publishAfterCommit(); 
     }
 
@@ -38,35 +39,34 @@ public class Mypage {
     }
 
     public String getUserId() {
-        return this.logined.getUserId();
+        return logined.getUserId();
     }
-
     public void setUserId(String userId) {
-        this.logined.setUserId(userId);
+        logined.setUserId(userId);
     }
 
     public String getUserName() {
-        return this.logined.getUserName();
+        return logined.getUserName();
     }
 
     public void setUserName(String userName) {
-        this.logined.setUserName(userName);
+        logined.setUserName(userName);
     }
 
     public Integer getUserMoney() {
-        return this.logined.getUserMoney();
+        return logined.getUserMoney();
     }
 
     public void setUserMoney(Integer userMoney) {
-        this.logined.setUserMoney(userMoney);
+        logined.setUserMoney(userMoney);
     }
 
     public boolean isUserSubscribeStatus() {
-        return this.logined.isUserSubscribeStatus();
+        return logined.isUserSubscribeStatus();
     }
 
     public void setUserSubscribeStatus(boolean userSubscribeStatus) {
-        this.logined.setUserSubscribeStatus(userSubscribeStatus);
+        logined.setUserSubscribeStatus(userSubscribeStatus);
     }
 
 

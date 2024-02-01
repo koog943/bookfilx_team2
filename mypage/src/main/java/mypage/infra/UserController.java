@@ -23,11 +23,12 @@ import javax.validation.constraints.Null;
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
-
+    private final MypageRepository mypageRepository;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, MypageRepository mypageRepository) {
         this.userService = userService;
+        this.mypageRepository = mypageRepository;
     }
 
     @PostMapping
@@ -35,18 +36,25 @@ public class UserController {
         return userService.save(user);
     }
 
-    // @Operation(summary = "전체 사용자 조회", description = "사용자 목록 조회입니다")
-    // @ApiResponses(value = {
-    //     @ApiResponse(responseCode = "200", description = "성공", content = {
-    //         @Content(
-    //           mediaType = "application/json",
-    //           array = @ArraySchema(schema = @Schema(implementation = User.class)))
-    //       })
-    // })
-
     @GetMapping
     public List<Mypage> readAll() {
-        return userService.findAll();
+        List<Mypage> users = userService.findAll();
+
+        return users;
+    }
+
+    @GetMapping("/list")
+    @ResponseBody
+    public Iterable<Mypage> bookList() {
+        MypageRepository Repository = mypage.domain.Mypage.repository();
+
+        Iterable<Mypage> mypage = null;
+        try {
+            mypage = Repository.findAll();
+        } catch(NullPointerException e) {
+            
+        }
+        return mypage;
     }
 
     @GetMapping("/{id}")
@@ -64,13 +72,12 @@ public class UserController {
         return null;
     }
 
-   
-    @GetMapping("/{id}/checkSubscrib")
+    @GetMapping("/{id}/checkSubscribe")
     public ResponseEntity<Object> checkSubscription(@PathVariable Long id) {
         Mypage user = userService.findById(id);
 
         if (user != null) {
-            if (user.isUserSubscribeStatus()== true) {
+            if (user.isUserSubscribeStatus()) {
                 return ResponseEntity.ok("사용자는 현재 구독 중입니다.");
             } else {
                 return ResponseEntity.ok("사용자는 현재 비구독 중입니다. 결제창으로 이동?");
@@ -82,77 +89,43 @@ public class UserController {
 
     @PutMapping("/{id}/subscribe")
     public ResponseEntity<Object> subscribe(@PathVariable Long id) {
-
-        MypageRepository mypageRepository = mypage.domain.Mypage.repository();
-
         Mypage user = userService.findById(id);
 
         if(user != null){
-
             if (user.getUserMoney() >= 10000) {
                 user.setUserMoney(user.getUserMoney() - 10000);
                 user.setUserSubscribeStatus(true);
-                mypageRepository.save(user);
+                userService.save(user);
                 return ResponseEntity.ok("구독 완료. 현재 금액 : "+user.getUserMoney());
             } else{
                 return ResponseEntity.ok("구독 실패. 현재 금액 : "+user.getUserMoney());
             }
-            
         }
-        return null;
-
+        return ResponseEntity.notFound().build();
     }
-
 
     @PutMapping("/{id}/addMoney")
     public ResponseEntity<Object> addMoney(@PathVariable Long id , @RequestBody Integer addMoney) {
         Mypage user = userService.findById(id);
-        MypageRepository mypageRepository = mypage.domain.Mypage.repository();
-
 
         if(user != null){
-
             user.setUserMoney(user.getUserMoney() + addMoney);
-            mypageRepository.save(user);
-
-
+            userService.save(user);
             return ResponseEntity.ok("금액 추가 되었습니다.");
-            
         }
         return ResponseEntity.notFound().build();
-
     }
 
-    // @GetMapping("/{id}/money")
-    // public ResponseEntity<Object> getUserMoney(@PathVariable Long id) {
-
-    //     Mypage user = userService.findById(id);
-
-    //     if (user != null) {
-
-    //         int userMoney = user.getUserMoney();
-    //         return ResponseEntity.ok(userMoney);
-    //     }
-    //     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-
-    // }
-
-    @PutMapping("/{id}/editname")
+    @PutMapping("/{id}/editName")
     public ResponseEntity<Object> editName(@PathVariable Long id , @RequestBody String userName) {
         Mypage user = userService.findById(id);
-        MypageRepository mypageRepository = mypage.domain.Mypage.repository();
-
 
         if(user != null){
-
             user.setUserName(userName);
-            mypageRepository.save(user);
-
+            userService.save(user);
             return ResponseEntity.ok(user.getUserName()+"으로 변경 되었습니다.");
-            
         }
         return ResponseEntity.notFound().build();
-
     }
 }
 
