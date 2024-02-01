@@ -1,0 +1,110 @@
+
+server:
+  port: 8088
+
+---
+
+keycloak-client:
+  server-url: http://localhost:9090
+  realm: master
+
+spring:
+  config:
+    activate:
+      on-profile: default
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay 
+      routes:
+        - id: bookflixLogin
+          uri: http://localhost:8082
+          predicates:
+            - Path=/bookflix/**
+        - id: bookflixLogin
+          uri: http://localhost:8082
+          predicates:
+            - Path=/book/**
+        - id: frontend
+          uri: http://localhost:8080
+          predicates:
+            - Path=/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:8082"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: false
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: "bookflix"
+            client-secret: AmO4THLtEesD7u3FuExNuO9dWJANoKR3
+            redirect-uri: "http://localhost:8088/login/oauth2/code/bookflix"
+            authorization-grant-type: authorization_code
+            scope: openid
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
+
+---
+
+keycloak-client:
+  server-url: http://34.93.249.69:8080
+  realm: master
+
+spring:
+  config:
+    activate:
+      on-profile: docker
+  cloud:
+    gateway:
+      routes:
+        - id: bookflixlogin
+          uri: http://bookflixlogin:8080
+          predicates:
+            - Path=/bookflix/**
+        - id: book
+          uri: http://bookflixlogin:8080
+          predicates:
+            - Path=/book/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: 
+              - "http://bookflixlogin:8080"
+              - "http://*/booklist"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: false
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: "bookflix"
+            client-secret: vV21xSdvFJ7ICipZmIhicIPNg9Btzooc
+            redirect-uri: "http://35.244.15.13:8080/login/oauth2/code/bookflix"
+            authorization-grant-type: authorization_code
+            scope: openid
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
+
+server:
+  port: 8080
