@@ -30,6 +30,13 @@ public class Mypage {
         event.publishAfterCommit(); 
     }
 
+    public static MypageRepository repository() {
+        MypageRepository bookRepository = MyPageApplication.applicationContext.getBean(
+            MypageRepository.class
+        );
+        return bookRepository;
+    }
+
     public String getUserId() {
         return this.logined.getUserId();
     }

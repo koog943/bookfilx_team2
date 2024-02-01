@@ -2,6 +2,7 @@ package mypage.infra;
 
 
 
+import org.apache.kafka.common.security.auth.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 // import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import mypage.domain.Mypage;
-
+import mypage.domain.MypageRepository;
 
 import java.util.List;
 
@@ -23,8 +24,6 @@ import javax.validation.constraints.Null;
 public class UserController {
     private final UserService userService;
 
-    @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
 
     @Autowired
     public UserController(UserService userService) {
@@ -83,6 +82,9 @@ public class UserController {
 
     @PutMapping("/{id}/subscribe")
     public ResponseEntity<Object> subscribe(@PathVariable Long id) {
+
+        MypageRepository mypageRepository = mypage.domain.Mypage.repository();
+
         Mypage user = userService.findById(id);
 
         if(user != null){
@@ -90,7 +92,7 @@ public class UserController {
             if (user.getUserMoney() >= 10000) {
                 user.setUserMoney(user.getUserMoney() - 10000);
                 user.setUserSubscribeStatus(true);
-                userService.save(user);
+                mypageRepository.save(user);
                 return ResponseEntity.ok("구독 완료. 현재 금액 : "+user.getUserMoney());
             } else{
                 return ResponseEntity.ok("구독 실패. 현재 금액 : "+user.getUserMoney());
@@ -105,12 +107,13 @@ public class UserController {
     @PutMapping("/{id}/addMoney")
     public ResponseEntity<Object> addMoney(@PathVariable Long id , @RequestBody Integer addMoney) {
         Mypage user = userService.findById(id);
+        MypageRepository mypageRepository = mypage.domain.Mypage.repository();
 
 
         if(user != null){
 
             user.setUserMoney(user.getUserMoney() + addMoney);
-            userService.save(user);
+            mypageRepository.save(user);
 
 
             return ResponseEntity.ok("금액 추가 되었습니다.");
@@ -137,12 +140,13 @@ public class UserController {
     @PutMapping("/{id}/editname")
     public ResponseEntity<Object> editName(@PathVariable Long id , @RequestBody String userName) {
         Mypage user = userService.findById(id);
+        MypageRepository mypageRepository = mypage.domain.Mypage.repository();
 
 
         if(user != null){
 
             user.setUserName(userName);
-            userService.save(user);
+            mypageRepository.save(user);
 
             return ResponseEntity.ok(user.getUserName()+"으로 변경 되었습니다.");
             
