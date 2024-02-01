@@ -1,0 +1,9 @@
+login\domain\LoginRepostitory.class
+login\infra\BookController.class
+login\BookflixLoginApplication.class
+login\domain\BookRepository.class
+login\domain\Login.class
+login\config\security\ResourceSecurityConfig.class
+login\infra\LoginController.class
+login\config\security\ResourceSecurityConfig$GrantedAuthoritiesExtractor.class
+login\domain\Book.class
